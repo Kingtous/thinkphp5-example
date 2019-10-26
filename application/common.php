@@ -27,5 +27,18 @@ function em_getallheaders()
     return $headers;
 }
 
+// token模块
+define("ID",'ID');
+define("TOKEN",'Token');
+define("OUT_TIME","Out_time");
+define("VAL_OUT_TIME",strtotime('+ 7 days'));
+define("TIME_FORMAT","Y-m-d h:i:s");
+/**
+ * @param $id
+ * @param $out_time
+ * @return false|string
+ */
 
-
+function create_token($id,$out_time){
+    return substr(md5($id.$out_time),5,26);
+}

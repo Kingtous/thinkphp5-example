@@ -1,3 +1,18 @@
+### ThinkPHP + MySQL 登录注册token小例子
+
+- 登录功能
+- 注册功能
+- 生成token功能
+
+**使用前提：**
+
+- `application/database.php`未上传，自行配置
+- 将`data.sql`导入自己的`MySQL`
+
+> 以下是ThinkPHP的官方文档
+
+---
+
 ThinkPHP 5.0
 ===============
 
