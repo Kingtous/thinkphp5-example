@@ -1,10 +1,13 @@
 <?php
 namespace app\index\controller;
 
-class Index
+use think\Controller;
+
+class Index extends Controller
 {
     public function index()
     {
-        return '403 Forbidden By Kingtous.';
+        $this->assign('headers',em_getallheaders());
+        return $this->fetch();
     }
 }

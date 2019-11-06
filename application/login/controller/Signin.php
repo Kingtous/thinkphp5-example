@@ -32,36 +32,41 @@ class Signin extends \UserLoginController
                     $result->setErr(ResponseModel::$ERRCODE_ERR,TIP_USER_NOT_EXIST);
                 }
                 else{
-                    // 去除密码
-                    unset($user[PASSWORD]);
-                    // 返回一个token
-                    // step 1.生成一个token，登录用户传入token，
-                    $token = create_token($user[PHONE_NUMBER],OUT_TIME);
-                    $store = [
-                        ID => $user[ID],
-                        TOKEN=>$token,
-                        OUT_TIME=>date(TIME_FORMAT,VAL_OUT_TIME)
-                    ];
-                    if (is_null(Token::get([ID => $user[ID]]))){
-                        // 如果没有则创建
-                        if (Token::create($store)){
-                            $result->setErrCode(ResponseModel::$ERRCODE_OK);
-                            $user[\TOKEN]=$token;
-                            $result->setData($user);
-                        }
-                        else{
-                            $this->result->setErr(ResponseModel::$ERRCODE_DATABASE_ERR,TIP_ILLEGAL_REQUEST);
-                        }
+                    if ($user[PASSWORD] != $passwd){
+                        $result->setErr(ResponseModel::$ERRCODE_ERR,TIP_PASSWORD_INCORRECT);
                     }
                     else{
-                        //有则更新token
-                        if (Token::update($store,[ID => $user[ID]])){
-                            $result->setErrCode(ResponseModel::$ERRCODE_OK);
-                            $user[\TOKEN]=$token;
-                            $result->setData($user);
+                        // 去除密码
+                        unset($user[PASSWORD]);
+                        // 返回一个token
+                        // step 1.生成一个token，登录用户传入token，
+                        $token = create_token($user[PHONE_NUMBER],OUT_TIME);
+                        $store = [
+                            ID => $user[ID],
+                            TOKEN=>$token,
+                            OUT_TIME=>date(TIME_FORMAT,VAL_OUT_TIME)
+                        ];
+                        if (is_null(Token::get([ID => $user[ID]]))){
+                            // 如果没有则创建
+                            if (Token::create($store)){
+                                $result->setErrCode(ResponseModel::$ERRCODE_OK);
+                                $user[\TOKEN]=$token;
+                                $result->setData($user);
+                            }
+                            else{
+                                $this->result->setErr(ResponseModel::$ERRCODE_DATABASE_ERR,TIP_ILLEGAL_REQUEST);
+                            }
                         }
                         else{
-                            $this->result->setErr(ResponseModel::$ERRCODE_DATABASE_ERR,TIP_ILLEGAL_REQUEST);
+                            //有则更新token
+                            if (Token::update($store,[ID => $user[ID]])){
+                                $result->setErrCode(ResponseModel::$ERRCODE_OK);
+                                $user[\TOKEN]=$token;
+                                $result->setData($user);
+                            }
+                            else{
+                                $this->result->setErr(ResponseModel::$ERRCODE_DATABASE_ERR,TIP_ILLEGAL_REQUEST);
+                            }
                         }
                     }
                 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Headers演示</title>
+</head>
+<body>
+<!--name（必须）：要输出的数据模板变量-->
+<!--id（必须）：循环变量-->
+<!--offset（可选）：要输出数据的offset-->
+<!--length（可选）：输出数据的长度-->
+<!--key（可选）：循环的key变量，默认值为i-->
+<!--mod（可选）：对key值取模，默认为2-->
+<!--empty（可选）：如果数据为空显示的字符串-->
+<!--通常模型的select方法返回的结果是一个二维数组，可以直接使用volist标签进行输出。-->
+{volist name="headers" id="h"}
+<p>{$key}:{$h}</p>
+{/volist}
+
+</body>
+</html>

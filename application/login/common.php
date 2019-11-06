@@ -13,6 +13,7 @@ define("TIP_USER_NOT_EXIST","用户不存在");
 define("TIP_ILLEGAL_REQUEST","非法请求");
 define("TIP_PHONE_NUMBER_EXIST","该手机号已经被注册");
 define("TIP_LOGIN_ERROR","登陆失败");
+define("TIP_PASSWORD_INCORRECT","密码不正确");
 
 abstract class UserLoginController extends \app\common\controller\AcceptController {
 
